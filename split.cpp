@@ -18,6 +18,30 @@ void split(Node*& in, Node*& odds, Node*& evens)
 {
   /* Add code here */
 // WRITE YOUR CODE HERE
+// need base case AND recursive case (one of each)
+// smallest item solve (index of an array by index)
+// check if empty 
+if(in == nullptr){
+  odds = nullptr;
+  evens = nullptr;
+  return;
+}
+
+//now actually process 
+Node* current = in;
+in = in -> next; 
+
+if(current -> value % 2 == 0){
+  evens = current;
+  split(in, odds, evens -> next);
+}
+else{
+  odds = current;
+  split(in, odds -> next, evens);
+}
+// base case 
+// recurse 
+
 }
 
 /* If you needed a helper function, write it here */
