@@ -1,4 +1,4 @@
-o9#ifndef ULLISTSTR_H
+#ifndef ULLISTSTR_H
 #define ULLISTSTR_H
 #include <string>
 

@@ -30,7 +30,7 @@ void ULListStr::push_back(const std::string& val){
   if(empty()){
     Item* newItem = new Item;
     head_ = newItem;
-    tail_ = head_;
+    tail_ = newItem;
     //no array, so make one, only one space so make both pointers
     // point to same place
   }
@@ -51,7 +51,7 @@ void ULListStr::push_back(const std::string& val){
 }
 
 void ULListStr::push_front(const std::string& val){
-  if(empty()){
+  if(empty()){ //basically just copying push_back but flipped
     Item* newItem = new Item;
     head_ = newItem;
     tail_ = newItem;
@@ -122,7 +122,7 @@ void ULListStr::pop_front(){
   }
 }
 
-std::string* getValAtLoc(size_t loc) const{
+std::string* ULListStr::getValAtLoc(size_t loc) const{
   if(loc >= size_){
     return NULL;
   }
