@@ -44,7 +44,7 @@ void ULListStr::push_back(const std::string& val){
     }
   }
   tail_ -> val[tail_ -> last] = val;
-  tail_-> last++;
+  tail_ -> last++;
   
 
   size_++;
@@ -52,27 +52,28 @@ void ULListStr::push_back(const std::string& val){
 
 void ULListStr::push_front(const std::string& val){
   if(empty()){ //basically just copying push_back but flipped
-    Item* newItem = new Item;
-    head_ = newItem;
-    tail_ = newItem;
+    Item* newI = new Item;
+    head_ = newI;
+    tail_ = newI;
 
     head_->first = ARRSIZE;
     head_->last = ARRSIZE;
   }
 
   else if(head_->first == 0){
-    Item* newItem = new Item;
-    newItem->first = ARRSIZE;
-    newItem->last = ARRSIZE;
+    Item* newI = new Item;
+    newI->first = ARRSIZE;
+    newI->last = ARRSIZE;
 
-    newItem->next = head_;
-    head_->prev = newItem;
-    head_ = newItem;
+    newI -> next = head_;
+    head_->prev = newI;
+    head_ = newI;
   }
 
-  head_->first--;
+  head_->first--; //new head so need to move 
   head_->val[head_->first] = val;
-  size_++;
+
+  size_++; //increment
 }
 
 void ULListStr::pop_back(){
@@ -104,11 +105,11 @@ void ULListStr::pop_front(){
     return;
   }
 
-  head_->first++;
+  head_-> first++;
   size_--;
 
-  // Delete the node if it is now empty.
-  if(head_->first == head_->last){
+  // now empty so bye node 
+  if(head_ -> first == head_ -> last){
     Item* oldHead = head_;
     head_ = head_->next;
     delete oldHead;
@@ -116,6 +117,8 @@ void ULListStr::pop_front(){
     if(head_ == NULL){
       tail_ = NULL;
     }
+
+
     else{
       head_->prev = NULL;
     }
@@ -123,7 +126,8 @@ void ULListStr::pop_front(){
 }
 
 std::string* ULListStr::getValAtLoc(size_t loc) const{
-  if(loc >= size_){
+  if(loc >= size_){ 
+    //check if location is within size (aka if its even possible to find)
     return NULL;
   }
 
