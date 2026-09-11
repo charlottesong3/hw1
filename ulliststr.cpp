@@ -26,6 +26,134 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 
+void ULListStr::push_back(const std::string& val){
+  if(empty()){
+    Item* newItem = new Item;
+    head_ = newItem;
+    tail_ = head_;
+    //no array, so make one, only one space so make both pointers
+    // point to same place
+  }
+  else{
+    if(tail_-> last == ARRSIZE){ //checking if tail's next element is in capacity
+      Item* newString = new Item;
+      tail_ -> next = newString;
+      newString -> prev = tail_;
+      tail_ = newString;
+      
+    }
+  }
+  tail_ -> val[tail_ -> last] = val;
+  tail_-> last++;
+  
+
+  size_++;
+}
+
+void ULListStr::push_front(const std::string& val){
+  if(empty()){
+    Item* newItem = new Item;
+    head_ = newItem;
+    tail_ = newItem;
+
+    head_->first = ARRSIZE;
+    head_->last = ARRSIZE;
+  }
+
+  else if(head_->first == 0){
+    Item* newItem = new Item;
+    newItem->first = ARRSIZE;
+    newItem->last = ARRSIZE;
+
+    newItem->next = head_;
+    head_->prev = newItem;
+    head_ = newItem;
+  }
+
+  head_->first--;
+  head_->val[head_->first] = val;
+  size_++;
+}
+
+void ULListStr::pop_back(){
+  if (empty()){
+    return;
+  }
+
+  tail_->last--;
+  size_--;
+
+  // Delete the node if it is now empty.
+  if(tail_->first == tail_->last){
+    Item* oldTail = tail_;
+    tail_ = tail_->prev;
+    delete oldTail;
+
+    if(tail_ == NULL){
+      head_ = NULL;
+    }
+    else{
+      tail_->next = NULL;
+    }
+  }
+
+}
+
+void ULListStr::pop_front(){
+  if(empty()){
+    return;
+  }
+
+  head_->first++;
+  size_--;
+
+  // Delete the node if it is now empty.
+  if(head_->first == head_->last){
+    Item* oldHead = head_;
+    head_ = head_->next;
+    delete oldHead;
+
+    if(head_ == NULL){
+      tail_ = NULL;
+    }
+    else{
+      head_->prev = NULL;
+    }
+  }
+}
+
+std::string* getValAtLoc(size_t loc) const{
+  if(loc >= size_){
+    return NULL;
+  }
+
+  Item* current = head_;
+
+  while(current != NULL){
+    size_t valuesInNode = current->last - current->first;
+
+    if(loc < valuesInNode){
+      return &(current->val[current->first + loc]);
+    }
+
+    loc -= valuesInNode;
+    current = current->next;
+  }
+
+  return NULL;
+}
+
+std::string const& ULListStr::back() const
+{
+  // last is exclusive, so the final value is at last - 1.
+  return tail_->val[tail_->last - 1];
+}
+
+std::string const& ULListStr::front() const
+{
+  return head_->val[head_->first];
+}
+
 void ULListStr::set(size_t loc, const std::string& val)
 {
   std::string* ptr = getValAtLoc(loc);
@@ -63,3 +191,5 @@ void ULListStr::clear()
   tail_ = NULL;
   size_ = 0;
 }
+
+
